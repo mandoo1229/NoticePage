@@ -1,34 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 
-const NotePage = () => {
-  const [title, setTitle] = useState("");
-  const [check, setCheck] = useState(false);
-  const saveData = () => {
-    const userObj = { title: title };
-    window.localStorage.setItem("setTitle", JSON.stringify(userObj));
+function NotePage() {
+  const [todo, setTodo] = useState([{ name: '' }]);
+  let [inputValue, setInputValue] = useState('');
+  let [newTodo, setNewTodo] = useState([{ name: '' }]);
+
+  const inputChange = (e) => {
+    setInputValue(e.target.value);
   };
 
-  const callData = () => {
-    setCheck(true);
+  useEffect(() => setNewTodo({ name: inputValue }), [inputValue]);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setNewTodo({ name: inputValue });
+    setTodo([...todo, newTodo]);
+    setInputValue('');
   };
-  
-  const onChange = (e) => {
-    setTitle(e.target.value);
-    setCheck(false);
-  };
+
+  const todsMap = todo.map((todoItem, i) => <p ket={i}>{todoItem.name}</p>);
+
+  useEffect(() => {
+    window.localStorage.getItem('todoInLocal', JSON.stringify(todo));
+  }, [todo]);
+
   return (
     <div>
-      <input
-        name="title"
-        value={title}
-        onChange={onChange}
-        placeholder="제목을 입력해주세요."
-      />
-      <button onClick={saveData}>저장하기</button>
-      <button onChange={callData}>불러오기</button>
-      {check ? <p>{window.localStorage.getItem("title")}</p> : <></>}
+      name: <div>{todsMap}</div>
+      <form onSubmit={onSubmit}>
+        <input value={inputValue} onChange={inputChange}></input>
+        <button>저장</button>
+      </form>
     </div>
   );
-};
+}
 
 export default NotePage;
