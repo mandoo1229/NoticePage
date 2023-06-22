@@ -10,14 +10,14 @@ function NotePage() {
   };
 
   useEffect(() => {
-    const storedTodo = JSON.parse(window.localStorage.getItem('todoInLocal'));
+    const storedTodo = JSON.parse(window.localStorage.getItem('name'));
     if (storedTodo) {
       setTodo(storedTodo);
     }
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem('todoInLocal', JSON.stringify(todo));
+    window.localStorage.setItem('name', JSON.stringify(todo));
   }, [todo]);
 
   const onSubmit = (e) => {
