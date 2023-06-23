@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useInputs from '../hook/useInputs';
 import { ADD_ITEM, CHANGE_MENU } from '../reducers/BoardReducer';
-import useInputs from '../hook/useInput';
+// import './form.css';
 
 function formatDate(date) {
   const year = date.getFullYear();
@@ -10,12 +11,13 @@ function formatDate(date) {
   return `${year}-${month}-${day}`;
 }
 
-const Write = memo(({ id, dispatch, history }) => {
+const Write = memo(({ id, dispatch }) => {
   const item = {};
   const [state, onChangeInput] = useInputs({ title: '', content: '' });
   const { title, content } = state;
   const inputTitle = useRef(null);
-  const inputContenet = useRef(null);
+  const inputContent = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch({ type: CHANGE_MENU, menu: 'Write' });
@@ -24,11 +26,11 @@ const Write = memo(({ id, dispatch, history }) => {
 
   const onClickSubmit = () => {
     if (!title) {
-      alert('제목을 작성해주세요.');
+      alert('Please enter a title.');
       inputTitle.current.focus();
     } else if (!content) {
-      alert('본문을 작성해주세요.');
-      inputContenet.current.focus();
+      alert('Please enter the content.');
+      inputContent.current.focus();
     } else {
       item.id = id;
       item.title = title;
@@ -36,23 +38,26 @@ const Write = memo(({ id, dispatch, history }) => {
       item.date = formatDate(new Date());
       item.views = 0;
       dispatch({ type: ADD_ITEM, item });
-      history.pushState(`/detail/${item.id}`);
+      // history.push();
+      navigate(`/detail/${item.id}`);
     }
   };
 
   return (
-    <div>
-      <input ref={inputTitle} placeholder="title" name="title" value={title} onChange={onChangeInput} />
-      <input
-        className=""
-        ref={inputContenet}
+    <div className="form">
+      <div className="input-box">
+        <input ref={inputTitle} placeholder="title" name="title" value={title} onChange={onChangeInput} />
+      </div>
+      <textarea
+        className="textarea"
+        ref={inputContent}
         placeholder="content"
         name="content"
         value={content}
         onChange={onChangeInput}
       />
-      <div>
-        <span onClick={onClickSubmit}>submit</span>
+      <div className="btn-box">
+        <button onClick={onClickSubmit}>submit</button>
         <Link to="/">cancel</Link>
       </div>
     </div>

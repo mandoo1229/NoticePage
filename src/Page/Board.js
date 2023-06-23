@@ -1,19 +1,19 @@
 import React, { useReducer, useRef, useEffect } from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Routes } from 'react-router-dom';
 import { BoardReducer, GET_LOCAL_STORAGE } from '../reducers/BoardReducer';
 import Update from './Update';
 import Detail from './Detail';
 import Write from './Write';
 import List from './List';
 
-const intiState = {
+const initialState = {
   list: [],
   id: 0,
   menu: 'List',
 };
 
 const Board = () => {
-  const [state, dispatch] = useReducer(BoardReducer, intiState);
+  const [state, dispatch] = useReducer(BoardReducer, initialState);
   const { list, id, menu } = state;
   const isMount = useRef(true);
 
@@ -28,20 +28,23 @@ const Board = () => {
     dispatch({ type: GET_LOCAL_STORAGE });
     isMount.current = false;
   }, []);
+
   return (
-    <div>
-      <BrowserRouter basename="{process.env.PUBLIC_URL}">
-        <div className="">
+    <div className="Board">
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <div className="menu">
           <h1>{menu}</h1>
         </div>
-        <div className="">
+        <div className="btn-write">
           <Link to="/write">write</Link>
         </div>
-        <div>
-          <Route path="/" exact={true} render={() => <List list={list} dispatch={dispatch} />} />
-          <Route path="/Write" render={(routeProps) => <Write id={id} dispatch={dispatch} {...routeProps} />} />
-          <Route path="/update/:id" render={(routeProps) => <Update dispatch={dispatch} {...routeProps} />} />
-          <Route path="/detail/:id" render={(routeProps) => <Detail dispatch={dispatch} {...routeProps} />} />
+        <div className="wrap">
+          <Routes>
+            <Route path="/" exact={true} element={<List list={list} dispatch={dispatch} />} />
+            <Route path="/write" element={<Write id={id} dispatch={dispatch} />} />
+            <Route path="/update/:id" element={<Update dispatch={dispatch} />} />
+            <Route path="/detail/:id" element={<Detail dispatch={dispatch} />} />
+          </Routes>
         </div>
       </BrowserRouter>
     </div>

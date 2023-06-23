@@ -1,12 +1,14 @@
 import React, { useRef, useEffect, memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { CHANGE_MENU, UPDATE_ITEM } from '../reducers/BoardReducer';
-import useInputs from '../hook/useInput';
+import useInputs from '../hook/useInputs';
 import { getLocalItem } from '../util/util';
 import Error from './Error';
 
-const Update = memo(({ dispatch, match, history }) => {
-  const item = getLocalItem(match.params.id);
+const Update = memo(({ dispatch }) => {
+  const { id } = useParams();
+  const item = getLocalItem(id);
+  const navigate = useNavigate();
   const [state, onChangeInput] = useInputs({
     title: item ? item.title : '',
     content: item ? item.content : '',
@@ -17,7 +19,7 @@ const Update = memo(({ dispatch, match, history }) => {
   const inputContenet = useRef(null);
 
   useEffect(() => {
-    dispatchEvent({ type: CHANGE_MENU, menu: 'Update' });
+    dispatch({ type: CHANGE_MENU, menu: 'Update' });
     if (inputTitle.current) {
       inputTitle.current.focus();
     }
@@ -34,7 +36,7 @@ const Update = memo(({ dispatch, match, history }) => {
       item.title = title;
       item.content = content;
       dispatch({ type: UPDATE_ITEM, item });
-      history.pushState(`/detail/${item.id}`);
+      navigate(`/detail/${item.id}`);
     }
   };
 

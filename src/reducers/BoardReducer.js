@@ -35,7 +35,7 @@ export const BoardReducer = (state, action) => {
       };
     }
     case DELETE_ITEM: {
-      const list = state.list.fillter((item) => item.id !== action.id);
+      const list = state.list.filter((item) => item.id !== action.id);
       return {
         ...state,
         list,

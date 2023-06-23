@@ -1,11 +1,13 @@
 import React, { useEffect, useCallback, memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { CHANGE_MENU, DELETE_ITEM } from '../reducers/BoardReducer';
 import { getLocalItem } from '../util/util';
 import Error from './Error';
 
-const Detail = memo(({ dispatch, match, history }) => {
-  const item = getLocalItem(match.params.id);
+const Detail = memo(({ dispatch }) => {
+  const { id } = useParams();
+  const item = getLocalItem(id);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch({ type: CHANGE_MENU, menu: 'Detail' });
@@ -14,15 +16,14 @@ const Detail = memo(({ dispatch, match, history }) => {
   const onClickDelete = useCallback(() => {
     if (item) {
       dispatch({ type: DELETE_ITEM, id: item.id });
-      history.push('/');
+      navigate('/');
     }
-  }, [dispatch, history, item]);
+  }, [dispatch, navigate, item]);
   return (
     <div>
       {item ? (
         <div>
           <div>{item.data} </div>
-          <div>{item.views} </div>
           <div>{item.views} </div>
           <h2>{item.title}</h2>
 
