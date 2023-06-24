@@ -3,6 +3,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { CHANGE_MENU, UPDATE_ITEM } from '../reducers/BoardReducer';
 import useInputs from '../hook/useInputs';
 import { getLocalItem } from '../util/util';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import Error from './Error';
 
 const Update = memo(({ dispatch }) => {
@@ -43,21 +45,37 @@ const Update = memo(({ dispatch }) => {
   return (
     <div>
       {item ? (
-        <div className="form">
-          <div className="input-box">
-            <input ref={inputTitle} placeholder="title" name="title" value={title} onChange={onChangeInput} />
-          </div>
-          <textarea
-            className="textarea"
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <TextField
+            id="outlined-multiline-flexible"
+            label="제목을 작성해주세요"
+            multiline
+            maxRows={4}
+            style={{ width: '80%' }}
+            ref={inputTitle}
+            name="title"
+            value={title}
+            onChange={onChangeInput}
+          />
+          <br></br>
+          <TextField
+            id="outlined-multiline-static"
             ref={inputContenet}
-            placeholder="content"
+            multiline
+            rows={30}
+            style={{ width: '80%' }}
+            defaultValue="내용을 입력해주세요. "
             name="content"
             value={content}
             onChange={onChangeInput}
           />
-          <div className="btn-box">
-            <span onClick={onClickSubmit}>submit</span>
-            <Link to="/">cancel</Link>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', width: '80%', marginTop: '16px' }}>
+            <Button variant="contained" onClick={onClickSubmit}>
+              저장
+            </Button>
+            <Button variant="contained" color="error" style={{ marginLeft: '8px' }}>
+              <Link to="/">취소</Link>
+            </Button>
           </div>
         </div>
       ) : (
