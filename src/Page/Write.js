@@ -1,14 +1,15 @@
 import React, { useRef, useEffect, memo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import useInputs from '../hook/useInputs';
 import { ADD_ITEM, CHANGE_MENU } from '../reducers/BoardReducer';
-// import './form.css';
+import useInputs from '../hook/useInputs';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
-function formatDate(date) {
+function formatDateTime(date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDay()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day} `;
 }
 
 const Write = memo(({ id, dispatch }) => {
@@ -26,39 +27,53 @@ const Write = memo(({ id, dispatch }) => {
 
   const onClickSubmit = () => {
     if (!title) {
-      alert('Please enter a title.');
+      alert('제목을 작성해주세요');
       inputTitle.current.focus();
     } else if (!content) {
-      alert('Please enter the content.');
+      alert('내용을 작성해주세요');
       inputContent.current.focus();
     } else {
       item.id = id;
       item.title = title;
       item.content = content;
-      item.date = formatDate(new Date());
+      item.date = formatDateTime(new Date());
       item.views = 0;
       dispatch({ type: ADD_ITEM, item });
-      // history.push();
       navigate(`/detail/${item.id}`);
     }
   };
 
   return (
-    <div className="form">
-      <div className="input-box">
-        <input ref={inputTitle} placeholder="title" name="title" value={title} onChange={onChangeInput} />
-      </div>
-      <textarea
-        className="textarea"
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <TextField
+        id="outlined-multiline-flexible"
+        label="제목을 작성해주세요"
+        multiline
+        maxRows={4}
+        style={{ width: '80%' }}
+        ref={inputTitle}
+        name="title"
+        value={title}
+        onChange={onChangeInput}
+      />
+      <br></br>
+
+      <TextField
+        id="outlined-multiline-static"
         ref={inputContent}
-        placeholder="content"
+        multiline
+        rows={30}
+        style={{ width: '80%' }}
+        defaultValue="내용을 입력해주세요. "
         name="content"
         value={content}
         onChange={onChangeInput}
       />
-      <div className="btn-box">
-        <button onClick={onClickSubmit}>submit</button>
-        <Link to="/">cancel</Link>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '80%', marginTop: '16px' }}>
+        <Button onClick={onClickSubmit}>저장</Button>
+        <Button variant="outlined" color="error" style={{ marginLeft: '8px' }}>
+          <Link to="/">취소</Link>
+        </Button>
       </div>
     </div>
   );
