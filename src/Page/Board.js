@@ -1,5 +1,5 @@
 import React, { useReducer, useRef, useEffect } from 'react';
-import { BrowserRouter, Route, Link, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { BoardReducer, GET_LOCAL_STORAGE } from '../reducers/BoardReducer';
 import Update from './Update';
 import Detail from './Detail';
@@ -32,11 +32,8 @@ const Board = () => {
   return (
     <div className="Board">
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <div className="menu">
+        <div className="menu" style={{ display: 'flex', justifyContent: 'center' }}>
           <h1>{menu}</h1>
-        </div>
-        <div className="btn-write">
-          <Link to="/write">write</Link>
         </div>
         <div className="wrap">
           <Routes>
