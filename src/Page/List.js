@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, memo } from 'react';
+import React, { useEffect, useCallback, memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CHANGE_MENU } from '../reducers/BoardReducer';
 import { INCREASE_VIEWS } from '../reducers/BoardReducer';
@@ -13,6 +13,8 @@ import Button from '@mui/material/Button';
 // import '../style/List.css';
 
 const List = memo(({ list, dispatch }) => {
+  const [search, setSearch] = useState('');
+
   const onClickItem = useCallback(
     (id) => () => {
       dispatch({ type: INCREASE_VIEWS, id });
@@ -23,6 +25,11 @@ const List = memo(({ list, dispatch }) => {
     dispatch({ type: CHANGE_MENU, menu: 'List' });
   }, [dispatch]);
 
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+  const filteredList = list.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()));
+  //검색기능 구현 코드입니다.
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Table className="custom-table" size="small" aria-label="a dense table" style={{ width: '50%', height: '50%' }}>
@@ -34,7 +41,7 @@ const List = memo(({ list, dispatch }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {list
+          {filteredList
             .sort((a, b) => b.id - a.id)
             .map((item) => {
               return (
@@ -52,6 +59,13 @@ const List = memo(({ list, dispatch }) => {
         </TableBody>
       </Table>
       <div style={{ display: 'flex', justifyContent: 'flex-end', width: '50%', marginTop: '16px' }}>
+        <input
+          type="text"
+          placeholder="검색해주세요"
+          value={search}
+          onChange={handleSearch}
+          style={{ marginBottom: '16px' }}
+        />
         <Button variant="outlined" color="secondary" style={{ marginLeft: 'auto' }}>
           <Link to="/write">write</Link>
         </Button>
