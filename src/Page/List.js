@@ -58,17 +58,19 @@ const List = memo(({ list, dispatch }) => {
             })}
         </TableBody>
       </Table>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '50%', marginTop: '16px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', width: '50%', marginTop: '16px' }}>
+        <Button variant="outlined" color="secondary" style={{ marginLeft: 'auto' }}>
+          <Link to="/write">write</Link>
+        </Button>
+      </div>
+      <div style={{ textAlign: 'center', width: '50%', marginTop: '16px' }}>
         <input
           type="text"
           placeholder="검색해주세요"
           value={search}
           onChange={handleSearch}
-          style={{ marginBottom: '16px' }}
+          style={{ display: 'block', margin: '0 auto', marginBottom: '16px' }}
         />
-        <Button variant="outlined" color="secondary" style={{ marginLeft: 'auto' }}>
-          <Link to="/write">write</Link>
-        </Button>
       </div>
     </div>
   );
