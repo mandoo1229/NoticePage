@@ -27,28 +27,44 @@ const Detail = memo(({ dispatch }) => {
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       {item ? (
         <div>
-          <table>
+          <table style={{ width: '800px' }}>
             <tr>
               <h2>제목 : {item.title}</h2>
-              <th>날짜</th>
-              <td>{item.date} </td>
-              <th>조회수</th>
-              <td>{item.views} </td>
+              <th style={{ textAlign: 'right' }}>날짜 : {item.date}</th>
+              <th style={{ textAlign: 'right' }}>조회수</th>
+              <td style={{ textAlign: 'right' }}>{item.views} </td>
             </tr>
+            <br></br>
+
             <tr>
-              <td>내용 : {item.content} </td>
+              <tr key={item.id + '-content'}>
+                <td>내용 : {item.content} </td>
+              </tr>
             </tr>
           </table>
-          {/* <h2>{item.title}</h2>
-          <div>{item.data} </div>
-          <div>{item.views} </div>
-          <div>{item.content}</div> */}
-          <div>
-            <Button variant="contained" href={`/update/${item.id}`}>
-              <Link to={`/update/${item.id}`}>수정</Link>
-            </Button>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Button color="secondary" href="/">
               <Link to="/">목록으로 가기</Link>
+            </Button>
+            <Button variant="contained" href={`/update/${item.id}`} style={{ marginLeft: '540px' }}>
+              <Link to={`/update/${item.id}`}>수정</Link>
             </Button>
             <Button variant="contained" color="error" onClick={onClickDelete}>
               삭제
