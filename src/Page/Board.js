@@ -30,12 +30,12 @@ const Board = () => {
   }, []);
 
   return (
-    <div className="Board">
+    <div>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <div className="menu" style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
           <h1>{menu}</h1>
         </div>
-        <div className="wrap">
+        <div>
           <Routes>
             <Route path="/" exact={true} element={<List list={list} dispatch={dispatch} />} />
             <Route path="/write" element={<Write id={id} dispatch={dispatch} />} />

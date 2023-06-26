@@ -48,16 +48,7 @@ const Detail = memo(({ dispatch }) => {
           <br></br>
           <br></br>
           <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
+
           <br></br>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Button color="secondary" href="/">
