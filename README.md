@@ -6,10 +6,7 @@
 
 ### 필수 기능!
 <details>
-<summary>접기/펼치기</summary>
-
-접은 내용(ex 소스 코드)
-</details>
+<summary></summary>
 
 - 테이블(정렬)
 - 페이징 처리(페이지, 항목표시)
@@ -18,19 +15,25 @@
 - 브라우저 스토리지를 이용하에 데이터 관리
   (세션, 로컬, 쿠키 상관없음)
 - UI 디자인 (재량껏)
+</details>
+
+
 
 ### 제약 사항
-
+<details>
+<summary></summary>
 - UI의 경우 라이브러리 사용 가능하나, 기능의 경우 (검색 등) 라이브러리 사용이 아닌 직접 개발!
-
+</details>
 ### Tip & 권장사항
-
+<details>
+<summary></summary>
 - ESLint 및 Prettier 적용 (코드 포맷팅)
 - ES6+ 문법 사용
 - Github로 소스 관리 및 README 작성 (필수!)
 - Commit Convention을 지키는 것을 권장 (추후 협업을 위함)
 - 최대한 본인이 사용자라고 생각하고 작업.
 - 디자인은 중요하지 않습니다. 기능 구현을 우선순위로 두세요.
+</details>
 
 ## Git Convention
 
