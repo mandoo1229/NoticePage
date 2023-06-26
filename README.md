@@ -24,9 +24,11 @@
 <summary></summary>
 - UI의 경우 라이브러리 사용 가능하나, 기능의 경우 (검색 등) 라이브러리 사용이 아닌 직접 개발!
 </details>
+
 ### Tip & 권장사항
 <details>
 <summary></summary>
+  
 - ESLint 및 Prettier 적용 (코드 포맷팅)
 - ES6+ 문법 사용
 - Github로 소스 관리 및 README 작성 (필수!)
