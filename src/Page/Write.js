@@ -64,7 +64,6 @@ const Write = memo(({ id, dispatch }) => {
         multiline
         rows={30}
         style={{ width: '80%' }}
-        defaultValue="내용을 입력해주세요. "
         name="content"
         value={content}
         onChange={onChangeInput}
